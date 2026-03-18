@@ -1,6 +1,6 @@
 import toArray from '@form-create/utils/lib/toarray';
 import Mitt from '@form-create/utils/lib/mitt';
-import {defineComponent, resolveComponent, nextTick} from 'vue';
+import {defineComponent, nextTick} from 'vue';
 import CloseCircleOutlined from './CloseCircleOutlined.vue';
 import FolderOutlined from './FolderOutlined.vue';
 import FileOutlined from './FileOutlined.vue';
@@ -121,8 +121,11 @@ export default defineComponent({
         formCreateInject: Object,
     },
     emits: ['update:modelValue', 'change'],
-    components:{
+    components: {
+        CloseCircleOutlined,
         FolderOutlined,
+        FileOutlined,
+        DeleteOutlined,
         EyeOutlined,
     },
     data() {
@@ -167,8 +170,14 @@ export default defineComponent({
             this.$emit('update:modelValue', val);
             this.$emit('change', val);
         },
+        getComponent(name) {
+            return this.$options.components?.[name] || this.$?.appContext?.components?.[name];
+        },
+        getModalProps(visible) {
+            return {open: visible, visible};
+        },
         makeInput() {
-            const Type = resolveComponent(this.icon);
+            const Type = this.getComponent(this.icon) || FolderOutlined;
 
             const slots = {
                 addonAfter: () => <Type class="_fc-frame-icon" onClick={this.showModal}/>
@@ -213,7 +222,7 @@ export default defineComponent({
             }
         },
         makeHandleIcon(val, index) {
-            const Type = resolveComponent((this.handleIcon === true || this.handleIcon === undefined) ? 'EyeOutlined' : this.handleIcon);
+            const Type = this.getComponent((this.handleIcon === true || this.handleIcon === undefined) ? 'EyeOutlined' : this.handleIcon) || EyeOutlined;
             return <Type class="_fc-frame-icon"
                 onClick={() => this.handleClick(val)} key={'5' + index}/>
         },
@@ -235,7 +244,7 @@ export default defineComponent({
             }))
         },
         makeBtn() {
-            const Type = resolveComponent(this.icon);
+            const Type = this.getComponent(this.icon) || FolderOutlined;
             return <div class="_fc-upload-btn" onClick={() => this.showModal()} key={7}>
                 <Type class="_fc-frame-icon"/>
             </div>
@@ -319,13 +328,12 @@ export default defineComponent({
                 this.frameLoad(this.$refs.frame.contentWindow || {});
             }
         });
-        const aModal = resolveComponent('AModal');
         return <div class={{'_fc-frame': true, '_fc-disabled': this.disabled}}>{Node}
-            <aModal mask={this.previewMask} title={modalTitle} {...{[aModal && aModal.props.open ? 'open' : 'visible']: this.previewVisible}}
+            <AModal mask={this.previewMask} title={modalTitle} {...this.getModalProps(this.previewVisible)}
                 onCancel={() => this.previewVisible = false} footer={null}>
                 <img style="width: 100%" src={this.previewImage}/>
-            </aModal>
-            <aModal {...{width, title, ...this.modal}} {...{[aModal && aModal.props.open ? 'open' : 'visible']: this.frameVisible}}
+            </AModal>
+            <AModal {...{width, title, ...this.modal}} {...this.getModalProps(this.frameVisible)}
                 onCancel={() => (this.closeModal(true))} v-slots={
                     {footer: () => this.makeFooter()}
                 }>
@@ -334,7 +342,7 @@ export default defineComponent({
                     'border': '0 none',
                     'width': '100%'
                 }}/> : null}
-            </aModal>
+            </AModal>
         </div>
     },
     beforeMount() {

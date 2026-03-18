@@ -15,6 +15,9 @@ module.exports = {
         }
     },
     configureWebpack: {
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js', '.jsx', '.vue', '.json']
+        },
         module: {
             rules: [
                 {
@@ -22,6 +25,15 @@ module.exports = {
                     include: /node_modules/,
                     type: 'javascript/auto'
                 },
+                {
+                    test: /\.tsx?$/,
+                    use: [
+                        {
+                            loader: 'babel-loader'
+                        }
+                    ],
+                    exclude: /node_modules(?!\/@form-create)/
+                }
             ]
         }
     },

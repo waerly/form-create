@@ -73,13 +73,25 @@
       </ARow>
       <br/>
       <AButton @click="jsonCreate">使用Json生成</AButton>
+      <AButton @click="jsonCreate2">使用Json生成</AButton>
       <AButton @click="create">默认生成</AButton>
       <AButton @click="createJson" style="color:#ff7271;">获取 json 字符串生成规则(toJson)</AButton>
     </div>
     <ARow>
       <h3>Render</h3>
       <form-create :rule="rule" v-model:api="fapi" :option="option" v-model="formData" @prefix-change="change"
-                   :onBtn-click="btnClick"/>
+                   :onBtn-click="btnClick">
+        <!-- 自定义插槽内容 -->
+        <template #customSlot="{ api, field }">
+          <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; color: white;">
+            <h2 style="margin: 0 0 10px 0; color: white;">🎉 这是自定义插槽内容</h2>
+            <p style="margin: 0; opacity: 0.9;">可以在这里放置任何自定义内容</p>
+            <AButton type="primary" style="margin-top: 10px;" @click="() => alert('插槽按钮被点击！')">
+              点击我
+            </AButton>
+          </div>
+        </template>
+      </form-create>
     </ARow>
   </div>
 </template>
@@ -95,11 +107,16 @@ export default defineComponent({
     const rule = ref(mock())
 
     //formData
-    const formData = ref({})
+    const formData = ref({
+    })
     const json = ref({});
     watch(formData, value => {
       json.value = value;
     })
+    //修改name值
+    // setTimeout(()=>{
+    //   formData.value.username="okok"
+    // },1000)
 
 
     //option
@@ -114,6 +131,9 @@ export default defineComponent({
     }
 
     const jsonCreate = function () {
+      rule.value = jsonMock();
+    }
+    const jsonCreate2 = function () {
       rule.value = jsonMock();
     }
 
@@ -272,6 +292,7 @@ export default defineComponent({
 
       create,
       jsonCreate,
+      jsonCreate2,
       createJson,
 
       syncFormData,

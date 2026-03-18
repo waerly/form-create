@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "jsx": "preserve",
+        "declaration": true,
+        "declarationMap": true,
+        "emitDeclarationOnly": true,
+        "outDir": "./dist",
+        "rootDir": "../",
+        "skipLibCheck": true,
+        "lib": ["ESNext", "DOM"],
+        "baseUrl": "..",
+        "paths": {
+            "@form-create/utils/*": ["utils/*"]
+        }
+    },
+    "include": [
+        "src/**/*",
+        "../utils/src/**/*.ts",
+        "../utils/lib/**/*.js"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/*.spec.ts"
+    ]
+}

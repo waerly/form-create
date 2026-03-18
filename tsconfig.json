@@ -4,18 +4,37 @@
 		"target": "ESNext",
 		"sourceMap": true,
 		"allowUnreachableCode": true,
-    "allowSyntheticDefaultImports": true,
+    	"allowSyntheticDefaultImports": true,
 		"allowJs": true,
 		"experimentalDecorators": true,
 		"moduleResolution": "node",
 		"noImplicitThis": true,
 		"noImplicitAny": false,
 		"importHelpers": true,
-		"jsx": "preserve"
+		"jsx": "preserve",
+		//保留类型
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": false,
+		"outDir": "./packages/ant-design-vue/dist",
+		"rootDir": "./packages",  // 扩大 rootDir 范围以包含 utils 目录
+		"skipLibCheck": true,
+		"lib": ["ESNext", "DOM"],
+		"types": ["node"],
+		"baseUrl": ".",
+		"paths": {
+			"@form-create/utils/*": ["packages/utils/*"]
+		}
 	},
 	"include": [
-		"*.vue",
-		"*",
-    "types/typing.d.ts"
+		"packages/ant-design-vue/src/**/*",
+		"packages/utils/src/**/*.ts"  // 包含 utils 目录的 TypeScript 文件
+	],
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts",
+		"**/*.d.ts",
+		"**/*.config.js",
+		"**/*.config.ts"
 	]
 }

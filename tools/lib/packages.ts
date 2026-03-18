@@ -7,6 +7,8 @@ import ora from 'ora';
 import os from 'os';
 import execa from 'execa';
 import dayjs from 'dayjs';
+import path from 'path';
+import fs from 'fs';
 
 let spinner: Ora;
 const build = async (target: string, comp: string, targetName: string) => {
@@ -29,6 +31,51 @@ const build = async (target: string, comp: string, targetName: string) => {
         ],
         {stdio: 'inherit'}
     );
+
+    // 2. 生成 TypeScript 声明文件
+    // 2. 为当前包生成 TypeScript 声明文件
+    const pkgTsConfigPath = path.resolve(target, 'tsconfig.json');
+    const distPath = path.resolve(target, 'dist');
+
+    // 如果包有自己的 tsconfig，则使用它
+    if (fs.existsSync(pkgTsConfigPath)) {
+        spinner.text = chalk.bold.yellow(`generating types for ${targetName}...\n`);
+        try {
+            await execa('npx', [
+                'tsc',
+                '--project', pkgTsConfigPath,
+                '--emitDeclarationOnly',
+                '--declaration',
+                '--outDir', distPath
+            ], {stdio: 'inherit'});
+            spinner.text = chalk.bold.green(`types generated for ${targetName}\n`);
+        } catch (error) {
+            spinner.text = chalk.bold.red(`failed to generate types for ${targetName}: ${error.message}\n`);
+        }
+    } else {
+        // 否则使用根目录的 tsconfig，但限定只编译当前包的源码
+        const rootTsConfigPath = path.resolve(process.cwd(), 'tsconfig.json');
+        const srcPath = path.resolve(target, 'src');
+
+        if (fs.existsSync(rootTsConfigPath) && fs.existsSync(srcPath)) {
+            spinner.text = chalk.bold.yellow(`generating types for ${targetName}...\n`);
+            try {
+                await execa('npx', [
+                    'tsc',
+                    '--project', rootTsConfigPath,
+                    '--emitDeclarationOnly',
+                    '--declaration',
+                    '--rootDir', srcPath,
+                    '--outDir', distPath
+                ], {stdio: 'inherit'});
+                spinner.text = chalk.bold.green(`types generated for ${targetName}\n`);
+            } catch (error) {
+                spinner.text = chalk.bold.red(`failed to generate types for ${targetName}: ${error.message}\n`);
+            }
+        }
+    }
+
+
     spinner.text = chalk.bold.green(`finished build ${targetName} ui time: ${dayjs().startOf('millisecond').format('SSS')}ms. \n `);
 }
 

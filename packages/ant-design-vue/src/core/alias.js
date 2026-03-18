@@ -33,4 +33,8 @@ export default {
     array: 'fcGroup',
     subForm: 'fcSubForm',
     object: 'fcSubForm',
+    slotContainer: 'fcSlotContainer',
+    formula: 'fcFormula',
+    title: 'fcTitle',
+    demo: 'fcDemo',
 }

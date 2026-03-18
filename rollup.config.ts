@@ -26,14 +26,14 @@ import stringifyAuthor from 'stringify-author'
 /// plugins
 import vue from 'rollup-plugin-vue';
 import postcss from 'rollup-plugin-postcss';
-import { cssUrl } from '@sixian/css-url';
+import {cssUrl} from '@sixian/css-url';
 import externals from 'rollup-plugin-node-externals';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
-import { terser } from 'rollup-plugin-terser';
-import { visualizer } from 'rollup-plugin-visualizer';
-import replace from "@rollup/plugin-replace";
+import {terser} from 'rollup-plugin-terser';
+import {visualizer} from 'rollup-plugin-visualizer';
+import replace from '@rollup/plugin-replace';
 import multiInput from 'rollup-plugin-multi-input';
 
 // console.log()
@@ -45,7 +45,7 @@ import multiInput from 'rollup-plugin-multi-input';
 const buildRootDir = path.resolve(process.env.BUILD_TARGET_PATH)
 // const packageDir = path.resolve(buildRootDir, process.env.BUILD_TARGET)
 const resolve = p => path.resolve(buildRootDir, p)
-const pkg = require(resolve(`package.json`))
+const pkg = require(resolve('package.json'))
 const packageOptions = pkg.buildFormCreateOptions || {}
 // const name = packageOptions.filename || path.basename(packageDir)
 const exportName = packageOptions.exportName || humps.pascalize(`fc${process.env.BUILD_TARGET_COMP}`)
@@ -60,22 +60,22 @@ const isMult = packageOptions.isMulti
 
 
 const _banner = {
-  author: isPackaegs ? `2018-${new Date().getFullYear()} ${pkg.author}\n * Github https://github.com/xaboy/form-create` : `2018-${new Date().getFullYear()} ${pkg.author}\n * Github https://github.com/xaboy/form-create with ${process.env.BUILD_TARGET_COMP}`,
-  license: pkg.license,
-  name: libName,
-  version
+    author: isPackaegs ? `2018-${new Date().getFullYear()} ${pkg.author}\n * Github https://github.com/xaboy/form-create` : `2018-${new Date().getFullYear()} ${pkg.author}\n * Github https://github.com/xaboy/form-create with ${process.env.BUILD_TARGET_COMP}`,
+    license: pkg.license,
+    name: libName,
+    version
 }
 
 /// output config format and file
 const outputConfigs = {
-  'umd': {
-    file: resolve(`dist/${fileName}.js`),
-    format: `umd`
-  },
-  'esm': {
-    file: resolve(`dist/${fileName}.esm.js`),
-    format: `es`
-  },
+    'umd': {
+        file: resolve(`dist/${fileName}.js`),
+        format: 'umd'
+    },
+    'esm': {
+        file: resolve(`dist/${fileName}.esm.js`),
+        format: 'es'
+    },
 }
 
 const defaultFormats = ['umd','esm']
@@ -84,201 +84,243 @@ const packageFormats = inlineFormats || packageOptions.formats || defaultFormats
 const packageConfigs = packageFormats.map(format => createConfig(format, outputConfigs[format]))
 
 if (process.env.NODE_ENV === 'production') {
-  packageFormats.forEach(format => {
-    packageConfigs.push(createMinifiedConfig(format))
-  })
+    packageFormats.forEach(format => {
+        packageConfigs.push(createMinifiedConfig(format))
+    })
 }
 
 /// https://github.com/egoist/bili/blob/master/src/utils/get-banner.ts
 function createBanner(banner, pkg) {
-  if (!banner || typeof banner === 'string') {
-    return banner || ''
-  }
+    if (!banner || typeof banner === 'string') {
+        return banner || ''
+    }
 
-  banner = { ...pkg, ...(banner === true ? {} : banner) }
+    banner = {...pkg, ...(banner === true ? {} : banner)}
 
-  const author =
+    const author =
     typeof banner.author === 'string'
-      ? banner.author
-      : typeof banner.author === 'object'
-        ? stringifyAuthor(banner.author)
-        : ''
+        ? banner.author
+        : typeof banner.author === 'object'
+            ? stringifyAuthor(banner.author)
+            : ''
 
-  const license = banner.license || ''
+    const license = banner.license || ''
 
-  return (
-    '/*!\n' +
+    return (
+        '/*!\n' +
     ` * ${banner.name} v${banner.version}\n` +
     ` * (c) ${author || ''}\n` +
     (license && ` * Released under the ${license} License.\n`) +
     ' */'
-  )
+    )
 }
 
 function createReplacePlugin(format) {
 
-  const replacements = {
-    'process.env.NODE_ENV': 'production',
-    'process.env.VERSION': version,
-    'process.env.UI': UI_LIB,
-    'process.env.format': format
-  }
+    const replacements = {
+        'process.env.NODE_ENV': 'production',
+        'process.env.VERSION': version,
+        'process.env.UI': UI_LIB,
+        'process.env.format': format
+    }
 
-  return replace({
-    values: replacements,
-    preventAssignment: true
-  })
+    return replace({
+        values: replacements,
+        preventAssignment: true
+    })
 }
 
 /// create plugins
 function createRollupPlugins(plugins, format) {
 
-  const rollupPlugins = [
-    vue({
-      preprocessStyles: true,
-    }),
-  ];
+    const rollupPlugins = [
+        vue({
+            preprocessStyles: true,
+        }),
+    ];
 
-  if (isMult) {
-    rollupPlugins.push(multiInput({
-      relative: resolve('src/')
+    if (isMult) {
+        rollupPlugins.push(multiInput({
+            relative: resolve('src/')
+        }))
+    }
+
+    /// css settings
+    rollupPlugins.push(postcss({
+        minimize: true,
+        extract: false,
+        plugins: [
+            cssUrl({
+                imgExtensions: /\.(png|jpg|jpeg|gif|svg)$/,
+                fontExtensions: /\.(ttf|woff|woff2|eot)$/,
+                limit: 8192,
+                hash: false,
+                slash: false
+            })
+        ]
+    }));
+
+
+    /// devDependencies
+    rollupPlugins.push(externals({
+        devDeps: true,
+        // 添加这个选项：对于 @form-create 包，也要将其依赖外部化
+        exclude: [
+            '@form-create/component-antdv-upload',
+            '@form-create/component-antdv-frame',
+            '@form-create/component-antdv-group',
+            '@form-create/component-subform',
+            // 以及你项目中 components 目录下的组件
+            /^\/.*\/components\//
+        ]
+    }));
+
+    /// j
+    rollupPlugins.push(nodeResolve({
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
+        preferBuiltins: true,
+        browser: true,
+        dedupe: ['vue'] // 关键：去重 vue，确保只使用一个 vue 实例
+    }));
+
+    /// commonjs
+    rollupPlugins.push(commonjs());
+    /// replace
+    if (isPackaegs) {
+        rollupPlugins.push(createReplacePlugin(format));
+    }
+
+    rollupPlugins.push(babel({
+        babelHelpers: 'bundled',
+        exclude: /node_modules\/(?!@form-create)/, // 只排除非 @form-create 的 node_modules
+        extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
+        presets: [
+            ['@babel/preset-typescript', {allExtensions: true, isTSX: true}]
+        ],
+        plugins: [
+            ['@vue/babel-plugin-jsx', {}]
+        ]
+    }));
+    rollupPlugins.push(...plugins);
+
+
+    rollupPlugins.push(visualizer({
+        gzipSize: true,
+        brotliSize: true
     }))
-  }
 
-  /// css settings
-  rollupPlugins.push(postcss({
-    minimize: true,
-    extract: false,
-    plugins: [
-      cssUrl({
-        imgExtensions: /\.(png|jpg|jpeg|gif|svg)$/,
-        fontExtensions: /\.(ttf|woff|woff2|eot)$/,
-        limit: 8192,
-        hash: false,
-        slash: false
-      })
-    ]
-  }));
-
-
-  /// devDependencies
-  rollupPlugins.push(externals({
-    devDeps: true,
-  }));
-
-  /// j
-  rollupPlugins.push(nodeResolve({
-    extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
-    preferBuiltins: true,
-    browser: true
-  }));
-
-  /// commonjs
-  rollupPlugins.push(commonjs());
-  /// replace
-  if (isPackaegs) {
-    rollupPlugins.push(createReplacePlugin(format));
-  }
-
-
-  rollupPlugins.push(babel({
-    babelHelpers: 'bundled',
-    exclude: 'node_modules/**',
-    extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
-  }));
-  rollupPlugins.push(...plugins);
-
-
-  rollupPlugins.push(visualizer({
-    gzipSize: true,
-    brotliSize: true
-  }))
-
-  return rollupPlugins
+    return rollupPlugins
 }
 
 
 function createMultiInput() {
-  const _path = resolve('src')
-  const rootFolderFiles = fs.readdirSync(_path)
-  let files = [];
-  rootFolderFiles.forEach(function (item) {
-    let fPath = path.join(_path, item);
-    let stat = fs.statSync(fPath);
-    let ext = path.extname(fPath)
-    if (stat.isFile() === true && ext === '.js') {
-      files.push(fPath);
-    }
-  });
-  return files
+    const _path = resolve('src')
+    const rootFolderFiles = fs.readdirSync(_path)
+    let files = [];
+    rootFolderFiles.forEach(function (item) {
+        let fPath = path.join(_path, item);
+        let stat = fs.statSync(fPath);
+        let ext = path.extname(fPath)
+        if (stat.isFile() === true && ext === '.js') {
+            files.push(fPath);
+        }
+    });
+    return files
 }
 
 
 function createConfig(format, output, plugins = []) {
 
-  let entryFile = `src/index.js`
-  const _plugins = createRollupPlugins(plugins, format);
-  const _globals = ExtendGlobal ? Object.assign({}, {vue: 'Vue'}, ExtendGlobal) : {vue: 'Vue'};
-  let _input
-  let _output = {
-    banner: createBanner(_banner, pkg)
-  }
-  if (isMult) {
-    _input = createMultiInput()
-    _output = Object.assign({}, _output, {
-      format: 'esm',
-      dir: resolve('dist')
-    })
-  } else {
-    _input = resolve(entryFile)
-    _output = {
-      ...output,
-      ..._output,
-      globals: _globals,
-      name: exportName,
-      exports: 'named',
-      sourcemap: false,
-      sourcemapExcludeSources: false,
+    let entryFile = 'src/index.js'
+    const _plugins = createRollupPlugins(plugins, format);
+    const _globals = ExtendGlobal ? Object.assign({}, {vue: 'Vue'}, ExtendGlobal) : {vue: 'Vue'};
+    let _input
+    let _output = {
+        banner: createBanner(_banner, pkg)
     }
-  }
+    if (isMult) {
+        _input = createMultiInput()
+        _output = Object.assign({}, _output, {
+            format: 'esm',
+            dir: resolve('dist')
+        })
+    } else {
+        _input = resolve(entryFile)
+        _output = {
+            ...output,
+            ..._output,
+            globals: _globals,
+            name: exportName,
+            exports: 'named',
+            sourcemap: false,
+            sourcemapExcludeSources: false,
+            // 添加兼容层：解决 rollup 合并模块时 Vue 导入名称不一致的问题
+            intro: `
+if (typeof defineComponent === 'undefined' && typeof defineComponent$1 !== 'undefined') {
+    var defineComponent = defineComponent$1;
+}
+if (typeof reactive === 'undefined' && typeof reactive$1 !== 'undefined') {
+    var reactive = reactive$1;
+}
+if (typeof markRaw === 'undefined' && typeof markRaw$1 !== 'undefined') {
+    var markRaw = markRaw$1;
+}
+if (typeof nextTick === 'undefined' && typeof nextTick$1 !== 'undefined') {
+    var nextTick = nextTick$1;
+}
+`.trim(),
+        }
+    }
 
 
-  const configs = {
-    input: _input,
-    output: _output,
-    external: ['vue', ...ExtendExternals],
-    onwarn: (msg, warn) => {
-      if (msg.code === 'EVAL') {
-        return
-      }
-      if (!/Circular/.test(msg)) {
-        warn(msg)
-      }
-    },
-    plugins: _plugins
-  }
+    const configs = {
+        input: _input,
+        output: _output,
+        // external: ['vue', ...ExtendExternals],
+        external: (id) => {
+            // 将 vue 及其所有子路径标记为外部依赖
+            if (id === 'vue' || id.startsWith('vue/')) {
+                return true;
+            }
+            // 将 @form-create 的所有包标记为外部依赖
+            // if (id.startsWith('@form-create/component-')) {
+            //     return true;
+            // }
+            // 保持原有的 ExtendExternals 逻辑
+            return ExtendExternals.includes(id);
+        },
+        onwarn: (msg, warn) => {
+            if (msg.code === 'EVAL') {
+                return
+            }
+            if (!/Circular/.test(msg)) {
+                warn(msg)
+            }
+        },
+        plugins: _plugins
+    }
 
-  return configs
+    return configs
 }
 
 function createMinifiedConfig(format) {
-  /// example
-  return createConfig(
-    format,
-    {
-      file: outputConfigs[format].file.replace(/\.js$/, '.min.js'),
-      format: outputConfigs[format].format,
-    },
-    [
-      terser({
-        /** @deprecated */  ///  terser
-        output: {
-          comments: false,
-          preamble: createBanner(_banner, pkg)
-        }
-      })
-    ]
-  )
+    /// example
+    return createConfig(
+        format,
+        {
+            file: outputConfigs[format].file.replace(/\.js$/, '.min.js'),
+            format: outputConfigs[format].format,
+        },
+        [
+            terser({
+                /** @deprecated */  ///  terser
+                output: {
+                    comments: false,
+                    preamble: createBanner(_banner, pkg)
+                }
+            })
+        ]
+    )
 }
 
 

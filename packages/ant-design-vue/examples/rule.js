@@ -1,4 +1,5 @@
 import {maker} from '../src';
+import formHelper from "@form-create/utils/src/formHelper";
 
 window.mock = rule;
 //使用maker 生成器生成
@@ -6,9 +7,27 @@ export default function rule() {
     var mock;
     return mock = [
 
+        //测试demo
+        maker.demo('演示组件', 'demo_field', 'hello').props({
+            placeholder: '请输入内容'
+        }),
+
+        //测试使用新的方式生成
+        formHelper.input('username', '用户名', { required: true,value:"waerly" }),
+
         //hidden 组件
         maker.hidden('id', '14'),
+        //自定义标题
+        maker.create('fcTitle', 'fcTitle', '标题').props({
 
+        }),
+        //插槽容器组件
+        maker.create('fcSlotContainer', 'mySlot', '自定义插槽区域').props({
+            border: true,
+            padding: 20,
+            slotName: 'customSlot',  // 插槽名称
+            style: { background: '#f5f5f5' },
+        }),
         //自定义组件
         maker.create('testSlot', 'testSlot', 'testSlotTitle').children([
             maker.input('', 'asd').props({type:'search'}).slot('asd'),
@@ -66,6 +85,7 @@ export default function rule() {
         ]).emit(['change']).className('goods-name').children([
             maker.create('template').children(['append']).slot('addonAfter')
         ]).info({info: '请输入商品名称!!!!!', type: 'tooltip'}),
+
 
 
         //autoComplete 自动选择组件
@@ -287,6 +307,49 @@ export default function rule() {
             'min': 0,
             'max': 100,
             // 'range': true,
+        }),
+
+        // ===== 公式计算示例 =====
+        maker.number('单价', 'price', 100).props({
+            min: 0,
+            precision: 2,
+            placeholder: '请输入单价'
+        }),
+
+        maker.number('数量', 'quantity', 10).props({
+            min: 0,
+            placeholder: '请输入数量'
+        }),
+
+        maker.number('折扣(%)', 'discount', 10).props({
+            min: 0,
+            max: 100,
+            precision: 0,
+            placeholder: '请输入折扣'
+        }),
+
+        // 公式计算：总价 = 单价 * 数量 * (1 - 折扣/100)
+        maker.formula('总价', 'total_price').props({
+            formula: '{{price}} * {{quantity}} * (1 - {{discount}} / 100)',
+            precision: 2,
+            prefix: '¥',
+            showProcess: true,
+        }),
+
+        // 公式计算：税费 = 总价 * 0.13
+        maker.formula('税费(13%)', 'tax').props({
+            formula: '{{total_price}} * 0.13',
+            precision: 2,
+            prefix: '¥',
+        }),
+
+        // 公式计算：最终价格 = 总价 + 税费
+        maker.formula('最终价格', 'final_price').props({
+            formula: '{{total_price}} + {{tax}}',
+            precision: 2,
+            prefix: '¥',
+            suffix: ' 元',
+            className: 'final-price-highlight'
         }),
 
         {

@@ -1,4 +1,4 @@
-import {defineComponent, resolveComponent} from 'vue';
+import {defineComponent} from 'vue';
 import toArray from '@form-create/utils/lib/toarray';
 import getSlot from '@form-create/utils/lib/slot';
 import PlusOutlined from './PlusOutlined.vue';
@@ -60,12 +60,12 @@ export default defineComponent({
         return {
             previewImage: '',
             previewVisible: false,
-            uploadList: this.modelValue.map(parseFile).map(parseUpload)
+            uploadList: toArray(this.modelValue).map(parseFile).map(parseUpload)
         };
     },
     watch: {
         modelValue(n) {
-            this.uploadList = n.map(parseFile).map(parseUpload)
+            this.uploadList = toArray(n).map(parseFile).map(parseUpload)
         }
     },
     methods: {
@@ -106,8 +106,7 @@ export default defineComponent({
     },
     render() {
         const isShow = (!this.limit || this.limit > this.uploadList.length);
-        const aModal = resolveComponent('AModal');
-        const props = {[aModal.props.open ? 'open' : 'visible']: this.previewVisible}
+        const modalProps = {open: this.previewVisible, visible: this.previewVisible};
         return <>
             <AUpload maxCount={this.limit} listType={this.listType || 'picture-card'} {...this.$attrs}
                 onPreview={this.handlePreview}
@@ -117,10 +116,10 @@ export default defineComponent({
                     ? <PlusOutlined style="font-size: 16px; width: 16px;"/>
                     : <AButton><UploadOutlined/>{this.formCreateInject.t('clickToUpload') || this.uploadText || '点击上传'}</AButton>) : null}
             </AUpload>
-            <aModal mask={this.previewMask} title={this.modalTitle} {...props}
+            <AModal mask={this.previewMask} title={this.modalTitle} {...modalProps}
                 onCancel={() => this.previewVisible = false} footer={null}>
                 <img style="width: 100%" src={this.previewImage}/>
-            </aModal>
+            </AModal>
         </>;
     },
     mounted() {

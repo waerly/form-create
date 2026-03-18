@@ -1,6 +1,9 @@
 //使用 json对象 规则生成表单.!!json 不支持函数和正则
-export default function jsonMock() {
+export default function jsonMock(addComponent) {
 
+    if (addComponent && addComponent.indexOf('slot')!==-1) {
+
+    }
 
     //以下是组件的生成规则及参数默认值
 
@@ -11,6 +14,20 @@ export default function jsonMock() {
             type: "hidden",
             field: "id",
             value: "1"
+        },
+        //测试加上slot
+
+        {
+            type: 'si_fcSlotContainer',
+            field: 'customSlot',
+            title: '自定义区域',
+            props: {
+                title: '插槽容器标题',
+                description: '这是一个自定义插槽容器',
+                border: true,
+                minHeight: '200px',
+                slotName: 'customContent'
+            }
         },
 
 
@@ -95,6 +112,10 @@ export default function jsonMock() {
                                 type: 'datePicker',
                                 field: 'date',
                                 title: 'date',
+                                // props: {
+                                //     valueFormat: 'YYYY-MM-DD',
+                                //     format: 'YYYY-MM-DD'
+                                // },
                                 col: {
                                     span: 12
                                 }
@@ -149,6 +170,10 @@ export default function jsonMock() {
                                 field: 'date',
                                 title: 'date',
                                 native: false,
+                                // props: {
+                                //     valueFormat: 'YYYY-MM-DD',
+                                //     format: 'YYYY-MM-DD',
+                                // },
                                 col: {span: 12}
                             },
                             {
@@ -267,15 +292,17 @@ export default function jsonMock() {
 
 
         //timePicker 时间选择组件
-        {
-            type: "timePicker",
-            field: "section_time",
-            title: "活动时间",
-            value: '12:08:23',
-            props: {
-                format: 'HH/mm/ss'
-            }
-        },
+        //这个错误
+        // {
+        //     type: "timePicker",
+        //     field: "section_time",
+        //     title: "活动时间",
+        //     value: '12:08:23',
+        //     props: {
+        //         format: 'HH:mm:ss',
+        //         valueFormat: 'HH:mm:ss'
+        //     }
+        // },
 
 
         //inputNumber 数组输入框组件
@@ -313,7 +340,7 @@ export default function jsonMock() {
             props: {
                 "min": 0, //最小值
                 "max": 100, //最大值
-                "range": true, //是否为范围选择
+                // "range": true, //是否为范围选择
             }
         },
 
@@ -416,6 +443,6 @@ export default function jsonMock() {
                 ],//展示数据
             }
         }
-    ]
+    ];
 
 }

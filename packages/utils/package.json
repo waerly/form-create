@@ -3,14 +3,17 @@
     "version": "3.2.31",
     "description": "",
     "main": "./lib/index.js",
+    "types": "./dist/formHelper.d.ts",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build:types": "tsc -p tsconfig.json"
     },
     "files": [
         "README.md",
         "package.json",
         "LICENSE",
-        "lib"
+        "lib",
+        "dist"
     ],
     "keywords": [
         "@form-create"
