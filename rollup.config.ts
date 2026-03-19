@@ -254,8 +254,8 @@ function createConfig(format, output, plugins = []) {
             exports: 'named',
             sourcemap: false,
             sourcemapExcludeSources: false,
-            // 添加兼容层：解决 rollup 合并模块时 Vue 导入名称不一致的问题
-            intro: `
+            // UMD 格式：用 intro（var）注入兼容层，解决 rollup 合并时 Vue 导入名称不一致的问题
+            ...(format !== 'esm' ? {intro: `
 if (typeof defineComponent === 'undefined' && typeof defineComponent$1 !== 'undefined') {
     var defineComponent = defineComponent$1;
 }
@@ -268,10 +268,52 @@ if (typeof markRaw === 'undefined' && typeof markRaw$1 !== 'undefined') {
 if (typeof nextTick === 'undefined' && typeof nextTick$1 !== 'undefined') {
     var nextTick = nextTick$1;
 }
-`.trim(),
+`.trim()} : {}),
         }
     }
 
+
+    // ESM 格式：用 renderChunk 插件在 import 语句之后注入 const 别名
+    // 解决 rollup 将 Vue API 重命名（如 defineComponent -> defineComponent$1）但代码仍引用原名的问题
+    if (format === 'esm') {
+        _plugins.push({
+            name: 'esm-vue-alias',
+            renderChunk(code) {
+                // 找到所有 import 语句的结束位置（最后一个 import 行之后）
+                const lines = code.split('\n');
+                let lastImportIndex = -1;
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].trimStart().startsWith('import ')) {
+                        lastImportIndex = i;
+                    }
+                }
+                if (lastImportIndex === -1) return null;
+
+                // 从 import 行中提取所有 "原名 as 别名" 的别名对
+                const importLine = lines.slice(0, lastImportIndex + 1).join('\n');
+                const aliasRegex = /(\w+)\s+as\s+([\w$]+)/g;
+                const aliases = [];
+                // 提取 import 之后的正文代码（用于检测是否已有同名声明）
+                const bodyCode = lines.slice(lastImportIndex + 1).join('\n');
+                let match;
+                while ((match = aliasRegex.exec(importLine)) !== null) {
+                    const [, original, alias] = match;
+                    // 只处理 xxx as xxx$1 这类 rollup 自动重命名的情况
+                    if (alias !== original + '$1' && alias !== original + '$2') continue;
+                    // 如果 bundle 正文中已有同名 const/let/var/function 声明，跳过（rollup 重命名是为了避免冲突）
+                    const declRegex = new RegExp(`(?:const|let|var|function)\\s+${original}[\\s=(]`);
+                    if (declRegex.test(bodyCode)) continue;
+                    aliases.push(`const ${original} = ${alias};`);
+                }
+
+                if (aliases.length === 0) return null;
+
+                // 在最后一个 import 行之后插入别名声明
+                lines.splice(lastImportIndex + 1, 0, aliases.join('\n'));
+                return lines.join('\n');
+            }
+        });
+    }
 
     const configs = {
         input: _input,
