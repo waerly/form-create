@@ -1,0 +1,61 @@
+._fc-formula-container {
+    width: 100%;
+}
+
+._fc-formula-result {
+    margin-bottom: 8px;
+}
+
+._fc-formula-input {
+    font-weight: 500;
+}
+
+._fc-formula-readonly .ant-input {
+    background-color: #f5f5f5;
+    color: #1890ff;
+    font-weight: 600;
+    cursor: default;
+}
+
+._fc-formula-process {
+    padding: 12px;
+    background-color: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+._fc-formula-process-label {
+    font-weight: 500;
+    color: #595959;
+    margin-bottom: 4px;
+}
+
+._fc-formula-process-text {
+    color: #8c8c8c;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+}
+
+.form-create.fc-document-mode ._fc-formula-readonly .ant-input {
+    background-color: #fcfcfa;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+.form-create.fc-document-mode ._fc-formula-process {
+    padding: 10px 12px;
+    background-color: #fcfcfa;
+    border: 1px solid #d7dde5;
+    border-radius: 2px;
+}
+
+.form-create.fc-document-mode ._fc-formula-process-label {
+    color: #475569;
+    font-weight: 600;
+}
+
+.form-create.fc-document-mode ._fc-formula-process-text {
+    color: #6b7280;
+}
+

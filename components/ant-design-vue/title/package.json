@@ -1,0 +1,25 @@
+{
+  "name": "@form-create/component-antdv-title",
+  "version": "1.0.0",
+  "description": "标题组件 - 用于表单分组标题和说明",
+  "main": "./dist/index.min.js",
+  "module": "./dist/index.esm.js",
+  "scripts": {
+    "clean": "rimraf dist/",
+    "bili": "cross-env bili",
+    "build": "npm-run-all clean bili"
+  },
+  "files": [
+    "package.json",
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "@form-create",
+    "ant-design-vue",
+    "form-create-component",
+    "title"
+  ],
+  "author": "",
+  "license": "MIT"
+}

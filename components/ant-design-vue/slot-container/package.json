@@ -1,0 +1,29 @@
+{
+  "name": "@form-create/component-antdv-slot-container",
+  "version": "1.0.0",
+  "description": "Slot 插槽容器组件",
+  "main": "./dist/index.min.js",
+  "module": "./dist/index.esm.js",
+  "scripts": {
+    "clean": "rimraf dist/",
+    "bili": "cross-env bili",
+    "build": "npm-run-all clean bili"
+  },
+  "files": [
+    "README.md",
+    "package.json",
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "@form-create",
+    "ant-design-vue",
+    "form-create-component",
+    "slot-container"
+  ],
+  "author": "sitime",
+  "license": "MIT",
+  "dependencies": {
+    "@form-create/utils": "^3.2.31"
+  }
+}

@@ -29,6 +29,7 @@ export default {
     row: PRE + 'Row',
     tree: PRE + 'Tree',
     autoComplete: PRE + 'AutoComplete',
+    suggestSearch: 'fcSuggestSearch',
     group: 'fcGroup',
     array: 'fcGroup',
     subForm: 'fcSubForm',
@@ -38,4 +39,7 @@ export default {
     formula: 'fcFormula',
     title: 'fcTitle',
     demo: 'fcDemo',
+    relation: 'fcRelation',
+    relationForm: 'fcRelationForm',
+    relationTable: 'fcRelationTable',
 }

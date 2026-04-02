@@ -1,0 +1,65 @@
+._fc-title-container {
+    width: 100%;
+    margin: 16px 0;
+}
+
+._fc-title-content {
+    margin: 8px 0;
+}
+
+._fc-title-text {
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+}
+
+._fc-title-description {
+    margin-top: 4px;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+._fc-title-divider {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 8px 0;
+}
+
+._fc-title-align-left {
+    text-align: left;
+}
+
+._fc-title-align-center {
+    text-align: center;
+}
+
+._fc-title-align-right {
+    text-align: right;
+}
+
+.form-create.fc-document-mode ._fc-title-container {
+    margin: 10px 0 14px;
+}
+
+.form-create.fc-document-mode ._fc-title-content {
+    margin: 6px 0;
+}
+
+.form-create.fc-document-mode ._fc-title-text {
+    color: #1f2937;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.form-create.fc-document-mode ._fc-title-description {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.form-create.fc-document-mode ._fc-title-divider {
+    background: #d7dde5;
+    margin: 6px 0;
+}
+

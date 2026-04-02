@@ -9,7 +9,7 @@ const maker = {};
 // 注册当前 UI 包需要的基础别名方法。
 // 例如让业务层可以直接使用 maker.formula()、maker.slotContainer()。
 function useAlias(maker) {
-    ['treeSelect', 'upload', 'frame', 'autoComplete', 'cascader', 'datePicker', 'frame', 'inputNumber',  'inputPassword', 'radio', 'rate', 'switch', 'rate', 'slider', 'timePicker', 'siSlot', 'slotContainer', 'formula', 'title','demo'].reduce((maker, name) => {
+    ['treeSelect', 'upload', 'frame', 'autoComplete', 'suggestSearch', 'cascader', 'datePicker', 'frame', 'inputNumber',  'inputPassword', 'radio', 'rate', 'switch', 'rate', 'slider', 'timePicker', 'siSlot', 'slotContainer', 'formula', 'title', 'demo', 'relation', 'relationForm', 'relationTable'].reduce((maker, name) => {
         maker[name] = creatorFactory(name);
         return maker;
     }, maker);

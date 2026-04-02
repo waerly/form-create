@@ -1,0 +1,41 @@
+._fc-si-slot-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    color: #bfbfbf;
+    border: 1px dashed #d9d9d9;
+    border-radius: 4px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+._fc-si-slot-empty-icon {
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+
+._fc-si-slot-empty-text {
+    font-size: 13px;
+    text-align: center;
+}
+
+._fc-si-slot-empty-hint {
+    font-size: 11px;
+    color: #d9d9d9;
+    margin-top: 4px;
+}
+
+.form-create.fc-document-mode ._fc-si-slot-empty {
+    min-height: 72px;
+    border: 1px dashed #cfd6df;
+    border-radius: 2px;
+    background: #fcfcfa;
+    color: #64748b;
+}
+
+.form-create.fc-document-mode ._fc-si-slot-empty-hint {
+    color: #94a3b8;
+}
+

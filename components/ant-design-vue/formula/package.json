@@ -1,0 +1,29 @@
+{
+  "name": "@form-create/component-antdv-formula",
+  "version": "1.0.0",
+  "description": "公式计算组件 - 支持动态计算表单字段值",
+  "main": "./dist/index.min.js",
+  "module": "./dist/index.esm.js",
+  "scripts": {
+    "clean": "rimraf dist/",
+    "bili": "cross-env bili",
+    "build": "npm-run-all clean bili"
+  },
+  "files": [
+    "package.json",
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "@form-create",
+    "ant-design-vue",
+    "form-create-component",
+    "formula",
+    "calculator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@form-create/utils": "^3.2.31"
+  }
+}

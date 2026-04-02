@@ -6,6 +6,10 @@ import slotContainer from '../../../../components/ant-design-vue/slot-container/
 import formula from '../../../../components/ant-design-vue/formula/src/index'
 import title from '../../../../components/ant-design-vue/title/src/index'
 import demo from '../../../../components/ant-design-vue/demo/src/index'
+import relation from '../../../../components/ant-design-vue/relation/src/index'
+import relationForm from '../../../../components/ant-design-vue/relation-form/src/index'
+import relationTable from '../../../../components/ant-design-vue/relation-table/src/index'
+import suggestSearch from '../../../../components/ant-design-vue/suggest-search/src/index'
 import QuestionCircleOutlined from './icon/QuestionCircleOutlined.vue';
 
 export default [
@@ -17,5 +21,9 @@ export default [
     formula,
     title,
     demo,
+    relation,
+    relationForm,
+    relationTable,
+    suggestSearch,
     QuestionCircleOutlined,
 ]

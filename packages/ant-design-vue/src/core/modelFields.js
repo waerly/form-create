@@ -1,5 +1,6 @@
 export default {
     autoComplete: 'value',
+    suggestSearch: 'modelValue',
     cascader: 'value',
     inputNumber: 'value',
     inputPassword: 'value',

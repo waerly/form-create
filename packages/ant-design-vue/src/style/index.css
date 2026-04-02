@@ -21,3 +21,225 @@
 .fc-form-footer {
     margin-top: 12px;
 }
+
+.form-create.fc-document-mode .form-create .ant-form-item {
+    margin-bottom: 0;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item.ant-form-item-with-help {
+    margin-bottom: 0;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item .ant-form-item.ant-form-item-with-help {
+    margin-bottom: 0;
+}
+
+.form-create.fc-document-mode .form-create .fc-form-row {
+    margin-inline: 0 !important;
+}
+
+.form-create.fc-document-mode .form-create .fc-form-col {
+    padding-inline: 0 !important;
+}
+
+.form-create.fc-document-mode .form-create .fc-form-item {
+    border-bottom: 1px solid #d7dde5;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item-row {
+    min-height: 42px;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item-label {
+    display: flex;
+    align-items: stretch;
+    min-height: 42px;
+    padding: 0;
+    overflow: hidden;
+    background: #f7f7f4;
+    border-left: 1px solid #d7dde5;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item-label > label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 42px;
+    padding: 0 12px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item-control {
+    min-height: 42px;
+    border-left: 1px solid #d7dde5;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item-control-input {
+    min-height: 42px;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item-control-input-content {
+    display: flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 12px;
+    background: #fff;
+}
+
+.form-create.fc-document-mode .form-create .ant-input,
+.form-create.fc-document-mode .form-create .ant-input-number,
+.form-create.fc-document-mode .form-create .ant-picker,
+.form-create.fc-document-mode .form-create .ant-select-selector,
+.form-create.fc-document-mode .form-create .ant-input-affix-wrapper,
+.form-create.fc-document-mode .form-create textarea.ant-input {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.form-create.fc-document-mode .form-create .ant-input,
+.form-create.fc-document-mode .form-create .ant-input-number-input,
+.form-create.fc-document-mode .form-create .ant-picker-input > input,
+.form-create.fc-document-mode .form-create .ant-select-selection-item,
+.form-create.fc-document-mode .form-create .ant-select-selection-placeholder,
+.form-create.fc-document-mode .form-create textarea.ant-input {
+    padding-inline: 0 !important;
+    color: #111827;
+}
+
+.form-create.fc-document-mode .form-create .ant-input-number {
+    width: 100%;
+}
+
+.form-create.fc-document-mode .form-create .ant-input-number-handler-wrap {
+    display: none;
+}
+
+.form-create.fc-document-mode .form-create .ant-form-item-explain,
+.form-create.fc-document-mode .form-create .ant-form-item-extra {
+    padding: 4px 12px 6px;
+    border-left: 1px solid #d7dde5;
+    background: #fffdf8;
+    font-size: 12px;
+}
+
+.form-create.fc-document-mode .form-create textarea.ant-input {
+    min-height: 66px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.form-create.fc-document-mode .form-create .fc-form-title {
+    letter-spacing: 0.06em;
+}
+
+.form-create.fc-document-mode .fc-form-footer {
+    margin-top: 0;
+    padding-top: 14px;
+}
+
+
+.form-create.fc-document-mode .form-create .ant-picker-suffix,
+.form-create.fc-document-mode .form-create .ant-select-arrow,
+.form-create.fc-document-mode .form-create .ant-input-clear-icon {
+    color: #9aa4b2;
+}
+
+.form-create.fc-document-mode .form-create .ant-select-multiple .ant-select-selection-overflow {
+    gap: 4px;
+}
+
+.form-create.fc-document-mode .form-create .ant-select-multiple .ant-select-selection-item {
+    border-radius: 2px;
+    border-color: #d8dee6;
+    background: #f8fafc;
+}
+
+.form-create.fc-document-mode .form-create .ant-radio-group,
+.form-create.fc-document-mode .form-create .ant-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+}
+
+.form-create.fc-document-mode .form-create .ant-radio-wrapper,
+.form-create.fc-document-mode .form-create .ant-checkbox-wrapper {
+    margin-inline-end: 0;
+}
+
+.form-create.fc-document-mode .form-create .ant-switch {
+    transform: scale(0.92);
+    transform-origin: left center;
+}
+
+.form-create.fc-document-mode .form-create .ant-rate {
+    font-size: 18px;
+}
+
+.form-create.fc-document-mode .form-create .ant-cascader-picker,
+.form-create.fc-document-mode .form-create .ant-mentions,
+.form-create.fc-document-mode .form-create .ant-input-number-affix-wrapper {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.form-create.fc-document-mode .form-create .ant-upload-wrapper,
+.form-create.fc-document-mode .form-create ._fc-frame,
+.form-create.fc-document-mode .form-create ._fc-group,
+.form-create.fc-document-mode .form-create ._fc-relation,
+.form-create.fc-document-mode .form-create ._fc-relation-form,
+.form-create.fc-document-mode .form-create ._fc-relation-table {
+    width: 100%;
+}
+
+.form-create.fc-document-mode .form-create .fc-form-title {
+    color: #334155;
+    font-weight: 600;
+}
+
+.form-create.fc-document-mode .fc-form-footer .ant-form-item-control-input-content {
+    justify-content: flex-end;
+    padding-inline: 0;
+}
+
+.form-create.fc-document-mode .fc-submit-btn,
+.form-create.fc-document-mode .fc-reset-btn {
+    border-radius: 2px;
+    box-shadow: none;
+}
+
+.form-create.fc-document-mode .form-create .ant-tree-select .ant-select-selector,
+.form-create.fc-document-mode .form-create .ant-cascader .ant-select-selector {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.form-create.fc-document-mode .form-create .ant-slider {
+    margin: 10px 0;
+}
+
+.form-create.fc-document-mode .form-create .ant-slider-rail {
+    background-color: #d7dde5;
+}
+
+.form-create.fc-document-mode .form-create .ant-slider-track {
+    background-color: #475569;
+}
+
+.form-create.fc-document-mode .form-create .ant-slider-handle::after {
+    box-shadow: 0 0 0 2px #475569;
+}
+
+.form-create.fc-document-mode .form-create .ant-tree-select,
+.form-create.fc-document-mode .form-create .ant-cascader,
+.form-create.fc-document-mode .form-create .ant-mentions {
+    width: 100%;
+}
+

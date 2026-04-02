@@ -59,3 +59,16 @@
     margin-right: 4px;
     box-sizing: border-box;
 }
+
+.form-create.fc-document-mode ._fc-frame ._fc-upload-btn,
+.form-create.fc-document-mode ._fc-frame ._fc-files {
+    border: 1px solid #cfd6df;
+    border-radius: 2px;
+    box-shadow: none;
+    background: #fcfcfa;
+}
+
+.form-create.fc-document-mode ._fc-frame ._fc-upload-cover {
+    background: rgba(31, 41, 55, .55);
+}
+

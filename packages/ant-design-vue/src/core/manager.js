@@ -18,6 +18,10 @@ function isFalse(val) {
     return val === false;
 }
 
+function isRuleTitleHidden(rule) {
+    return rule?.props?.showTitle === false;
+}
+
 function tidyBool(opt, name) {
     if (hasProperty(opt, name) && !is.Object(opt[name])) {
         opt[name] = {show: !!opt[name]};
@@ -128,7 +132,7 @@ export default {
         const rule = ctx.prop;
         const uni = `${this.key}${ctx.key}`;
         const col = rule.col;
-        const isTitle = this.isTitle(rule) && rule.wrap.title !== false;
+        const isTitle = !isRuleTitleHidden(rule) && this.isTitle(rule) && rule.wrap.title !== false;
         const {layout, col: _col} = this.rule.props;
         const cls = rule.wrap.class;
         delete rule.wrap.class;
@@ -148,6 +152,7 @@ export default {
         return (layout === 'inline' || isFalse(_col) || isFalse(col.show)) ? item : this.makeCol(rule, uni, [item]);
     },
     isTitle(rule) {
+        if (isRuleTitleHidden(rule)) return false;
         if (this.options.form.title === false) return false;
         const title = rule.title;
         return !((!title.title && !title.native) || isFalse(title.show));
@@ -155,6 +160,7 @@ export default {
     makeInfo(rule, uni, ctx) {
         const titleProp = {...rule.title};
         const infoProp = {...rule.info};
+        if (isRuleTitleHidden(rule)) return;
         if (this.options.form.title === false) return false;
         if ((!titleProp.title && !titleProp.native) || isFalse(titleProp.show)) return;
         const isTip = isTooltip(infoProp);

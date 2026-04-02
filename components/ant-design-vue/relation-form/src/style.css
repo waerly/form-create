@@ -1,0 +1,109 @@
+._fc-relation-form {
+    width: 100%;
+}
+
+._fc-relation-form-box {
+    min-height: 132px;
+    border-radius: 6px;
+    border: 1px dashed #d9d9d9;
+    padding: 16px;
+    background: #fafafa;
+}
+
+._fc-relation-form-empty {
+    padding: 24px 0;
+}
+
+._fc-relation-form-empty-hint {
+    margin-top: 12px;
+    color: rgba(0, 0, 0, 0.45);
+    text-align: center;
+    line-height: 1.6;
+    font-size: 12px;
+}
+
+._fc-relation-form-preview ._fc-relation-form-box {
+    background: #fff;
+    border-style: solid;
+}
+
+._fc-relation-form-designer {
+    position: relative;
+    overflow: hidden;
+    border-style: solid;
+    border-color: #dbeafe;
+    background: linear-gradient(135deg, #f8fbff 0%, #eef6ff 100%);
+}
+
+._fc-relation-design-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    padding: 0 8px;
+    height: 22px;
+    border-radius: 999px;
+    background: #e0ecff;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+._fc-relation-design-name {
+    margin-bottom: 10px;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+._fc-relation-design-meta + ._fc-relation-design-meta {
+    margin-top: 8px;
+}
+
+._fc-relation-design-label {
+    display: inline-block;
+    min-width: 64px;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+._fc-relation-design-value {
+    color: #1f2937;
+    font-size: 12px;
+    word-break: break-all;
+}
+
+.form-create.fc-document-mode ._fc-relation-form-box {
+    min-height: 120px;
+    border-radius: 0;
+    border: 1px dashed #cfd6df;
+    padding: 14px;
+    background: #fcfcfa;
+}
+
+.form-create.fc-document-mode ._fc-relation-form-preview ._fc-relation-form-box {
+    border-style: solid;
+    background: #fff;
+}
+
+.form-create.fc-document-mode ._fc-relation-form-empty-hint {
+    color: #6b7280;
+}
+
+.form-create.fc-document-mode ._fc-relation-form-designer {
+    border-color: #d7dde5;
+    background: linear-gradient(180deg, #f8f8f6 0%, #ffffff 100%);
+}
+
+.form-create.fc-document-mode ._fc-relation-design-badge {
+    height: 20px;
+    border-radius: 2px;
+    background: #eef2f7;
+    color: #475569;
+}
+
+.form-create.fc-document-mode ._fc-relation-design-name {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+}
+

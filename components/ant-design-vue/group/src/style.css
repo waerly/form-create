@@ -443,3 +443,32 @@
         height: 22px;
     }
 }
+
+.form-create.fc-document-mode ._fc-group-container {
+    border: 1px dashed #cfd6df;
+    border-radius: 2px;
+    background: #fcfcfa;
+}
+
+.form-create.fc-document-mode ._fc-group-handle {
+    border-color: #cfd6df;
+    border-radius: 2px;
+    background: #fff;
+}
+
+.form-create.fc-document-mode ._fc-group-idx {
+    border-radius: 2px;
+    background: #eef2f7;
+    color: #475569;
+}
+
+.form-create.fc-document-mode ._fc-group-add {
+    border-radius: 2px;
+    border-color: rgb(100 116 139 / 45%);
+}
+
+.form-create.fc-document-mode ._fc-group-plus-minus::before,
+.form-create.fc-document-mode ._fc-group-plus-minus::after {
+    background-color: #475569;
+}
+
