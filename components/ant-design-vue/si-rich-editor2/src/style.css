@@ -1,0 +1,22 @@
+.fc-si-rich-editor2 {
+    width: 100%;
+}
+
+.fc-si-rich-editor2 .w-e-toolbar,
+.fc-si-rich-editor2 .w-e-bar {
+    border: 1px solid #d9e1ec;
+    border-radius: 12px 12px 0 0;
+    background: #f8fbff;
+    padding: 4px 8px;
+}
+
+.fc-si-rich-editor2 .w-e-text-container {
+    border: 1px solid #d9e1ec !important;
+    border-top: 0 !important;
+    border-radius: 0 0 12px 12px;
+    background: #fff;
+}
+
+.fc-si-rich-editor2 .w-e-text {
+    padding: 12px 14px;
+}

@@ -1,6 +1,10 @@
 export default {
     autoComplete: 'value',
     suggestSearch: 'modelValue',
+    siUpload: 'modelValue',
+    siImageUpload: 'modelValue',
+    siRichEditor2: 'modelValue',
+    siUserPicker: 'modelValue',
     cascader: 'value',
     inputNumber: 'value',
     inputPassword: 'value',

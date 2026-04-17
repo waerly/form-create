@@ -2,6 +2,13 @@ import {maker} from '../src';
 import formHelper from "@form-create/utils/src/formHelper";
 
 window.mock = rule;
+const uploadBaseUrl = (window.SI_UPLOAD_BASE_URL || 'http://localhost:9303').replace(/\/$/, '');
+const uploadAction = window.SI_UPLOAD_ACTION || `${uploadBaseUrl}/base/file/upload`;
+const mockUserList = [
+    { id: '1', username: 'admin', nickName: '管理员', account: 'admin' },
+    { id: '2', username: 'waerly', nickName: 'Waerly', account: 'waerly' },
+    { id: '3', username: 'demo.user', nickName: '演示用户', account: 'demo.user' }
+];
 //使用maker 生成器生成
 export default function rule() {
     var mock;
@@ -94,6 +101,84 @@ export default function rule() {
                 inject.self.props({options: !value ? [] : [{value}, {value: value + value}, {value: value + value + value}]});
             }
         }).emitPrefix('xaboy').emit(['change']).inject(true),
+
+        maker.siUpload('业务附件', 'si_upload_demo', []).props({
+            action: uploadAction,
+            name: 'file_data',
+            uploadProvider: 'oneBoot',
+            isPrivate: 0,
+            previewSize: 'small',
+            uploadText: '上传文件',
+            uploadTip: `当前测试地址：${uploadAction}`,
+            limit: 3,
+            maxSize: 10,
+            accept: '.pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.png,.jpg'
+        }),
+
+        maker.siImageUpload('封面图片', 'si_image_upload_demo', []).props({
+            action: uploadAction,
+            name: 'file_data',
+            uploadProvider: 'oneBoot',
+            isPrivate: 0,
+            previewSize: 'small',
+            uploadText: '上传图片',
+            uploadTip: `当前测试地址：${uploadAction}`,
+            limit: 1,
+            maxSize: 5
+        }),
+
+        maker.siRichEditor2('富文本2', 'si_rich_editor2_demo', '<p>示例内容</p>').props({
+            uploadProvider: 'oneBoot',
+            action: uploadAction,
+            name: 'file_data',
+            isPrivate: 0,
+            maxFileSize: 10,
+            height: 320,
+            placeholder: '请输入富文本内容'
+        }),
+
+        maker.siUserPicker('用户选择', 'si_user_picker_demo', '').props({
+            placeholder: '请选择用户',
+            pageSize: 20,
+            request: async ({ keyword }) => {
+                const currentKeyword = String(keyword || '').trim().toLowerCase();
+                return mockUserList.filter(item => {
+                    if (!currentKeyword) return true;
+                    return [item.username, item.nickName, item.account]
+                        .filter(Boolean)
+                        .some(text => String(text).toLowerCase().includes(currentKeyword));
+                });
+            },
+            detailRequest: async ids => {
+                const idList = Array.isArray(ids) ? ids : [ids];
+                const idSet = new Set(idList.map(id => String(id)));
+                return mockUserList.filter(item => idSet.has(String(item.id)));
+            },
+            labelField: 'username',
+            valueField: 'id'
+        }),
+
+        maker.siUserPicker('用户多选', 'si_user_picker_multi_demo', ['1', '3']).props({
+            placeholder: '请选择多个用户',
+            multiple: true,
+            pageSize: 20,
+            request: async ({ keyword }) => {
+                const currentKeyword = String(keyword || '').trim().toLowerCase();
+                return mockUserList.filter(item => {
+                    if (!currentKeyword) return true;
+                    return [item.username, item.nickName, item.account]
+                        .filter(Boolean)
+                        .some(text => String(text).toLowerCase().includes(currentKeyword));
+                });
+            },
+            detailRequest: async ids => {
+                const idList = Array.isArray(ids) ? ids : [ids];
+                const idSet = new Set(idList.map(id => String(id)));
+                return mockUserList.filter(item => idSet.has(String(item.id)));
+            },
+            labelField: 'username',
+            valueField: 'id'
+        }),
 
 
         //textarea 组件

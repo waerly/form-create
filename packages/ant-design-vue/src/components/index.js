@@ -10,6 +10,10 @@ import relation from '../../../../components/ant-design-vue/relation/src/index'
 import relationForm from '../../../../components/ant-design-vue/relation-form/src/index'
 import relationTable from '../../../../components/ant-design-vue/relation-table/src/index'
 import suggestSearch from '../../../../components/ant-design-vue/suggest-search/src/index'
+import siUpload from '../../../../components/ant-design-vue/si-upload/src/index'
+import siImageUpload from '../../../../components/ant-design-vue/si-image-upload/src/index'
+import siRichEditor2 from '../../../../components/ant-design-vue/si-rich-editor2/src/index'
+import siUserPicker from '../../../../components/ant-design-vue/si-user-picker/src/index'
 import QuestionCircleOutlined from './icon/QuestionCircleOutlined.vue';
 
 export default [
@@ -25,5 +29,9 @@ export default [
     relationForm,
     relationTable,
     suggestSearch,
+    siUpload,
+    siImageUpload,
+    siRichEditor2,
+    siUserPicker,
     QuestionCircleOutlined,
 ]

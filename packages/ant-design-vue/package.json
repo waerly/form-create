@@ -62,6 +62,7 @@
   "devDependencies": {
     "@ant-design/icons-vue": "^6.0.1",
     "@form-create/component-wangeditor": "^3.2.14",
+    "@wangeditor/editor": "^5.1.23",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "^4.5.3",
     "ant-design-vue": "^4.0",
